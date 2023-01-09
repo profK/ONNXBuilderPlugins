@@ -30,13 +30,13 @@ class UNNInterfaceBPLibrary : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "NNInterface sample test testing"), Category = "NNInterfaceTesting")
 	static float NNInterfaceSampleFunction(float Param);
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Load function InModelFilePath", Keywords = "load from file"), Category = "TestPluginTesting")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Load function InModelFilePath", Keywords = "load from file"), Category = "NNInterface")
 		static void LoadFromFile(FString SaveDirectory, FString FileName, FString& Report);
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Load function Bytes", Keywords = "load from bytes"), Category = "TestPluginTesting")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Load function Bytes", Keywords = "load from bytes"), Category = "NNInterface")
 	static void LoadFromBytes(TArray<uint8> InModelReadFromFileInBytes, FString& Report);
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Read ONNX File", Keywords = "read bytes"), Category = "TestPluginTesting")
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Read ONNX File", Keywords = "read bytes"), Category = "NNInterface")
 	static TArray<uint8> ReadONNXfile(FString SaveDirectory, FString FileName);
 	
 };
