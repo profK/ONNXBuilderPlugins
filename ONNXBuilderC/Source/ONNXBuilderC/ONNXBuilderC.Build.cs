@@ -16,11 +16,11 @@ public class ONNXBuilderC : ModuleRules
 
     private void CopyToBinaries(string Filepath, ReadOnlyTargetRules Target)
     {
-        string binariesDir = Path.Combine(GetUProjectPath(), "..","Binaries", Target.Platform.ToString());
+        string binariesDir = Path.Combine(GetUProjectPath(),"..","..", "Binaries", Target.Platform.ToString());
         string filename = Path.GetFileName(Filepath);
         
         Console.WriteLine(" - copying to ---- >" + binariesDir);
-
+ 
         if (!Directory.Exists(binariesDir))
             Directory.CreateDirectory(binariesDir);
 
