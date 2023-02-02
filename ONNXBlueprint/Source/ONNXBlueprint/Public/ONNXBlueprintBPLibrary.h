@@ -45,6 +45,21 @@ class UONNXBlueprintBPLibrary : public UBlueprintFunctionLibrary
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "MakeMLP", Keywords = "ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
 	static FONNXModel MakeMLP(int input_layer,int hidden_layer,int hidden_layer_count,int output_layer,
-					float bias);
-	
+					float bias, FString& Report);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetWeightCount", Keywords = "Get Weight Count ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
+	static int GetWeightCount(FONNXModel model, FString& Report);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "ExtractWeights", Keywords = "Extract Weight ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
+	static TArray<float> ExtractWeights(FONNXModel model, FString& Report);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SetWeights", Keywords = "Set Weight ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
+	static void SetWeights(FONNXModel model, TArray<float> weights, FString& Report);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetByteArray", Keywords = "Get Byte Array ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
+	static TArray<uint8> GetByteArray(FONNXModel model, FString SaveDirectory, FString& Report);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Compare Bytes", Keywords = "Compare Bytes ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
+	static void CompareBytes(TArray<uint8> fileByte, TArray<uint8> arrayByte, FString& Report);
+
 };
