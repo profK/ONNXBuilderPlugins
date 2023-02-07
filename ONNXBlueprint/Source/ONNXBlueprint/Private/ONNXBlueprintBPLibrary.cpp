@@ -52,9 +52,10 @@ TArray<float> UONNXBlueprintBPLibrary::ExtractWeights(FONNXModel model, FString&
 	return TWeights;
 }
 
-void UONNXBlueprintBPLibrary::SetWeights(FONNXModel& model, TArray<float> weights, FString& Report)
+FONNXModel UONNXBlueprintBPLibrary::SetWeights(FONNXModel model, TArray<float> weights, FString& Report)
 {
 	FONNXBuilderCModule::SetMLPWeights(model.Model, weights.GetData());
+	return model;
 }
 
 

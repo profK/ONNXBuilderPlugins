@@ -54,7 +54,7 @@ class UONNXBlueprintBPLibrary : public UBlueprintFunctionLibrary
 	static TArray<float> ExtractWeights(FONNXModel model, FString& Report);
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SetWeights", Keywords = "Set Weight ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
-	static void SetWeights(FONNXModel& model, TArray<float> weights, FString& Report);
+	static FONNXModel SetWeights(FONNXModel model, TArray<float> weights, FString& Report);
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetByteArray", Keywords = "Get Byte Array ONNXBlueprint NNI MLP"), Category = "ONNXBlueprint")
 	static TArray<uint8> GetByteArray(FONNXModel model, FString& Report);
