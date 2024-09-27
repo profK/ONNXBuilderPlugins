@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "ONNXBuilder.h"
 #include "ONNXBuilderC.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "ONNXBlueprintBPLibrary.generated.h"
@@ -29,7 +30,7 @@ struct FONNXModel
 	GENERATED_BODY()
 
 
-	TObjectPtr<OpaqueModel> Model;
+	OpaqueModel* Model;
 
 	FONNXModel(){}
 	FONNXModel(OpaqueModel *model):Model(model){}
