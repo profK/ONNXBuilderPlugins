@@ -20,6 +20,8 @@ struct FNNEModel
 	FNNEModel(TSharedPtr<UE::NNE::IModelInstanceCPU> model) : nneModel(model) {}
 };
 
+
+
 /* 
 *	Function library class.
 *	Each function in it is expected to be static and represents blueprint node that can be called in any blueprint.
@@ -45,6 +47,6 @@ class UNNEInterfaceBPLibrary : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable,
 		meta = (DisplayName = "Execute Sample function", Keywords = "NNEInterface sample test testing"),
 		Category = "NNEInterfaceTesting")
-	FNNEModel FromONNXFile(float InputSize);
+	FNNEModel FromONNXFile( TArray <int32> inputShape);
 	
 };
