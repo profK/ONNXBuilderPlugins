@@ -51,3 +51,20 @@ FNNEModel UNNEInterfaceBPLibrary::SetInputShape(FNNEModel model, TArray<int32> i
 	return model;
 }
 
+TArray<int32> ConvertToArrayInt32(TConstArrayView<uint32> Shape)
+{
+	TArray<int32> outputShape;
+	for (int32 i = 0; i < Shape.Num(); i++)
+	{
+		outputShape.Add(Shape[i]);
+	}
+	return outputShape;
+}
+
+TArray<int32> UNNEInterfaceBPLibrary::GetInputShape(FNNEModel model)
+{
+	TConstArrayView<UE::NNE::FTensorShape> shapes = model.ModelInstance->GetInputTensorShapes();
+	TConstArrayView<uint32> shape =shapes[0].GetData();
+	return ConvertToArrayInt32(shape);
+}
+

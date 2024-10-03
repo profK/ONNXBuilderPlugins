@@ -56,5 +56,10 @@ class UNNEInterfaceBPLibrary : public UBlueprintFunctionLibrary
 		meta = (DisplayName = "Set InputShape", Keywords = "NNEInterface NNE Model"),
 		Category = "NNEInterface")
 	static FNNEModel SetInputShape(FNNEModel model, TArray <int32> inputShape);
+
+	UFUNCTION(BlueprintCallable,
+		meta = (DisplayName = "Get InputShape", Keywords = "NNEInterface NNE Model"),
+		Category = "NNEInterface")
+	static TArray<int32> GetInputShape(FNNEModel model);
 	
 };
