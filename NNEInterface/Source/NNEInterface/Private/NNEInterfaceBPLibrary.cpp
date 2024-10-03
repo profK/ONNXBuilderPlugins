@@ -4,12 +4,7 @@
 #include "NNEInterface.h"
 #include "NNETypes.h"
 
-UNNEInterfaceBPLibrary::UNNEInterfaceBPLibrary(const FObjectInitializer& ObjectInitializer)
-: Super(ObjectInitializer)
-{
-
-}
-
+//Utilities
 static TArray<uint32> ConvertToTArrayUint32(TArray<int32> inputShape)
 {
 	TArray<uint32> outputShape;
@@ -20,19 +15,39 @@ static TArray<uint32> ConvertToTArrayUint32(TArray<int32> inputShape)
 	return outputShape;
 }
 
+//Blueprint Library
+
+UNNEInterfaceBPLibrary::UNNEInterfaceBPLibrary(const FObjectInitializer& ObjectInitializer)
+: Super(ObjectInitializer)
+{
+
+}
+
+FNNEModel::FNNEModel()
+{
+	TWeakInterfacePtr<INNERuntimeCPU> Runtime = UE::NNE::GetRuntime<INNERuntimeCPU>(FString("NNERuntimeORTCpu"));
+	if (Runtime.IsValid())
+	{
+		UNNEModelData* ModelData = NewObject<UNNEModelData>();
+		TSharedPtr<UE::NNE::IModelCPU> Model = Runtime->CreateModelCPU(ModelData);
+		ModelInstance = Model->CreateModelInstanceCPU();
+	} else {
+		UE_LOG(LogTemp, Warning, TEXT("Runtime is not valid"));
+	}
+}
+
+
+
 FNNEModel UNNEInterfaceBPLibrary::FromONNXFile(TArray<int32> inputShape)
 {
-	// Create the model from a neural network model data asset
-	TObjectPtr<UNNEModelData> ModelData = LoadObject<UNNEModelData>(GetTransientPackage(), TEXT("/path/to/asset"));
-	TWeakInterfacePtr<INNERuntimeCPU> Runtime = UE::NNE::GetRuntime<INNERuntimeCPU>(FString("NNERuntimeORTCpu"));
-	TSharedPtr<UE::NNE::IModelInstanceCPU> ModelInstance = Runtime->CreateModelCPU(ModelData)->CreateModelInstanceCPU();
+	FNNEModel model;
+	model.ModelInstance->SetInputTensorShapes({UE::NNE::FTensorShape::Make(ConvertToTArrayUint32(inputShape))});
+	return model;
+}
 
-	
-
-	// Prepare the model given a certain input size
-	UE::NNE::FTensorShape tshape = UE::NNE::FTensorShape::Make(ConvertToTArrayUint32(inputShape));
-	ModelInstance->SetInputTensorShapes({tshape});
-	return FNNEModel(ModelInstance);
-
+FNNEModel UNNEInterfaceBPLibrary::SetInputShape(FNNEModel model, TArray<int32> inputShape)
+{
+	model.ModelInstance->SetInputTensorShapes({UE::NNE::FTensorShape::Make(ConvertToTArrayUint32(inputShape))});
+	return model;
 }
 

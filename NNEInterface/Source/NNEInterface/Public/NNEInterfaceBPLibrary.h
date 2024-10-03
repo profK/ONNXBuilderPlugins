@@ -15,9 +15,12 @@ USTRUCT(BlueprintType)
 struct FNNEModel
 {
 	GENERATED_BODY()
-	TSharedPtr<UE::NNE::IModelInstanceCPU>  nneModel;
-	FNNEModel() {}
-	FNNEModel(TSharedPtr<UE::NNE::IModelInstanceCPU> model) : nneModel(model) {}
+	TSharedPtr<UE::NNE::IModelInstanceCPU> ModelInstance;
+	FNNEModel() ;
+
+	
+	void SetInputShape(TArray<int32> inputShape);
+	
 };
 
 
@@ -45,8 +48,13 @@ class UNNEInterfaceBPLibrary : public UBlueprintFunctionLibrary
 	GENERATED_UCLASS_BODY()
 
 	UFUNCTION(BlueprintCallable,
-		meta = (DisplayName = "Execute Sample function", Keywords = "NNEInterface sample test testing"),
-		Category = "NNEInterfaceTesting")
+		meta = (DisplayName = "Load Model From File", Keywords = "NNEInterface NNE Model"),
+		Category = "NNEInterface")
 	FNNEModel FromONNXFile( TArray <int32> inputShape);
+	
+	UFUNCTION(BlueprintCallable,
+		meta = (DisplayName = "Set InputShape", Keywords = "NNEInterface NNE Model"),
+		Category = "NNEInterface")
+	static FNNEModel SetInputShape(FNNEModel model, TArray <int32> inputShape);
 	
 };
